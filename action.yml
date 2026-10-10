@@ -18,6 +18,7 @@ runs:
     - name: Delete '${{ inputs.submodule-path }}' submodule
       run: |
         rm -rf ${{ inputs.submodule-path }}
+      shell: bash
     
     - name: Checkout Repository
       uses: actions/checkout@v7
@@ -29,19 +30,23 @@ runs:
       run: |
         sudo apt-get update && sudo apt-get install devscripts equivs debhelper
         sudo mk-build-deps -i -r -t "apt-get --no-install-recommends -y" debian/control
+      shell: bash
 
     # see https://github.com/actions/virtual-environments/issues/2606#issuecomment-772683150
     - name: Free up space
       run: |
         sudo rm -rf /usr/share/dotnet
+      shell: bash
 
     - name: Build DEBs
       run: |
         ./tools/debian/make-deb
+      shell: bash
 
     - name: Move DEBs
       run: |
         mkdir dist && mv ../*.deb dist
+      shell: bash
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4.1.0
