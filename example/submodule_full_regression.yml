@@ -1,3 +1,4 @@
+# Place in `.github/workflows/submodule_full_regression.yml`
 name: Darling CI (Submodule)
 
 on:
