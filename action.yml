@@ -17,7 +17,7 @@ runs:
     
     - name: Delete '${{ inputs.submodule-path }}' submodule
       run: |
-        rm -rf ${{ inputs.submodule-path }}
+        rm -rv ${{ inputs.submodule-path }}
       shell: bash
     
     - name: Checkout Repository
