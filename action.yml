@@ -13,7 +13,13 @@ runs:
       uses: actions/checkout@v7
       with:
         repository: darlinghq/darling
-        submodules: recursive
+
+    # Fetch the submodules with plain git, as darling's own workflow does: it
+    # runs in parallel, and Git LFS files (such as darling-swift's runtime
+    # dylibs) are downloaded instead of being left as pointer files.
+    - name: Checkout submodules
+      run: git submodule update --init --recursive --depth 1 --jobs 8
+      shell: bash
     
     - name: Delete '${{ inputs.submodule-path }}' submodule
       run: |
